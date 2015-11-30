@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Chef::Knife::PowerConfigCreate - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Knife.html">Chef::Knife</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="PowerCommon.html">Chef::Knife::PowerCommon</a>
+  
+  
+  
+    <li><a class="include" href="PowerCreateSchema.html">Chef::Knife::PowerCreateSchema</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-check_params">#check_params</a>
+    
+    <li ><a href="#method-i-choose_inet_netboot">#choose_inet_netboot</a>
+    
+    <li ><a href="#method-i-prep_config_file">#prep_config_file</a>
+    
+    <li ><a href="#method-i-prompt_ip_netboot">#prompt_ip_netboot</a>
+    
+    <li ><a href="#method-i-run">#run</a>
+    
+    <li ><a href="#method-i-setupldevs">#setupldevs</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Chef::Knife::PowerConfigCreate">
+  <h1 id="class-Chef::Knife::PowerConfigCreate" class="class">
+    class Chef::Knife::PowerConfigCreate
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-check_params" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_params</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_params-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_config_create.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_params</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;No HMC parameter specified&quot;</span>
+    <span class="ruby-identifier">show_usage</span>
+    <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-choose_inet_netboot" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">choose_inet_netboot</span><span
+            class="method-args">(arrayvnet)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="choose_inet_netboot-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_config_create.rb, line 206</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">choose_inet_netboot</span>(<span class="ruby-identifier">arrayvnet</span>)
+  <span class="ruby-identifier">res</span> = <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">arrayvnet</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">res</span> = <span class="ruby-identifier">prompt_ip_netboot</span>(<span class="ruby-identifier">arrayvnet</span>[<span class="ruby-value">0</span>])
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">choose</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">menu</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index</span>        = <span class="ruby-value">:letter</span>
+      <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index_suffix</span> = <span class="ruby-string">&quot; - &quot;</span>
+      <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">prompt</span> = <span class="ruby-string">&#39;Which Vlan to use for netboot : &#39;</span>
+      <span class="ruby-identifier">arrayvnet</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">vnet</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choice</span> <span class="ruby-identifier">vnet</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">res</span> = <span class="ruby-identifier">prompt_ip_netboot</span>(<span class="ruby-identifier">vnet</span>) <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">res</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-prep_config_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prep_config_file</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="prep_config_file-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_config_create.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">prep_config_file</span>
+  <span class="ruby-identifier">myhmc</span> = <span class="ruby-constant">PowerVMTools</span><span class="ruby-operator">::</span><span class="ruby-constant">HMC</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>],{ <span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], <span class="ruby-value">:passwd</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmcpasswd</span>], <span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>],<span class="ruby-value">:debug</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:debug</span>] })
+  <span class="ruby-ivar">@mynim</span> = <span class="ruby-constant">PowerVMTools</span><span class="ruby-operator">::</span><span class="ruby-constant">NIM</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:nimserver</span>],{<span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:nimuser</span>], <span class="ruby-value">:passwd</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:nimpasswd</span>],<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:port</span>]})
+  
+  <span class="ruby-comment">### formating highline</span>
+  <span class="ruby-identifier">ft</span> = <span class="ruby-constant">HighLine</span><span class="ruby-operator">::</span><span class="ruby-constant">ColorScheme</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cs</span><span class="ruby-operator">|</span>
+   <span class="ruby-identifier">cs</span>[<span class="ruby-value">:headline</span>]        = [ <span class="ruby-value">:bold</span>, <span class="ruby-value">:yellow</span>, <span class="ruby-value">:on_black</span> ]
+   <span class="ruby-identifier">cs</span>[<span class="ruby-value">:header</span>]        = [ <span class="ruby-value">:bold</span>, <span class="ruby-value">:yellow</span>, <span class="ruby-value">:on_black</span> ]
+   <span class="ruby-identifier">cs</span>[<span class="ruby-value">:horizontal_line</span>] = [ <span class="ruby-value">:bold</span>, <span class="ruby-value">:white</span> ]
+   <span class="ruby-identifier">cs</span>[<span class="ruby-value">:even_row</span>]        = [ <span class="ruby-value">:green</span> ]
+   <span class="ruby-identifier">cs</span>[<span class="ruby-value">:odd_row</span>]         = [ <span class="ruby-value">:magenta</span> ]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-constant">HighLine</span>.<span class="ruby-identifier">color_scheme</span> = <span class="ruby-identifier">ft</span>
+  <span class="ruby-identifier">text</span> = <span class="ruby-string">&quot;LPAR Json configuration creator&quot;</span>
+  <span class="ruby-identifier">line</span> = <span class="ruby-string">&quot;-&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{text}&#39;, :headline) %&gt;&quot;</span>)
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{line}&#39;, :horizontal_line) %&gt;&quot;</span>)
+
+  <span class="ruby-identifier">hash_response</span> = { <span class="ruby-string">&#39;managedsys&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;&#39;</span>,
+                    <span class="ruby-string">&#39;lparname&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;&#39;</span>,
+                    <span class="ruby-string">&#39;vp&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>,
+                    <span class="ruby-string">&#39;mem&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>,
+                    <span class="ruby-string">&#39;ame&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1.2</span>,
+                    <span class="ruby-string">&#39;vdevs&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+                    }
+  <span class="ruby-identifier">managedsystems</span> = <span class="ruby-identifier">myhmc</span>.<span class="ruby-identifier">framesbystatus</span>(<span class="ruby-string">&quot;Operating&quot;</span>)
+
+  <span class="ruby-identifier">text</span> = <span class="ruby-string">&quot;Managed systems available on this HMC&quot;</span>
+  <span class="ruby-identifier">line</span> = <span class="ruby-string">&quot;-&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{text}&#39;, :headline) %&gt;&quot;</span>)
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{line}&#39;, :horizontal_line) %&gt;&quot;</span>)
+  <span class="ruby-identifier">choose</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">menu</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index</span>        = <span class="ruby-value">:letter</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index_suffix</span> = <span class="ruby-string">&quot; - &quot;</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">prompt</span> = <span class="ruby-string">&quot;Please choose the hosting managed system : &quot;</span>
+    <span class="ruby-identifier">managedsystems</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sys</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choice</span> <span class="ruby-identifier">sys</span>.<span class="ruby-identifier">to_sym</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">hash_response</span>[<span class="ruby-string">&quot;managedsys&quot;</span>] = <span class="ruby-identifier">sys</span> <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-identifier">text</span> = <span class="ruby-string">&quot;LPAR Settings :&quot;</span>
+  <span class="ruby-identifier">line</span> = <span class="ruby-string">&quot;-&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{text}&#39;, :headline) %&gt;&quot;</span>)
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{line}&#39;, :horizontal_line) %&gt;&quot;</span>)
+  <span class="ruby-identifier">hash_response</span>[<span class="ruby-string">&quot;lparname&quot;</span>] = <span class="ruby-identifier">ask</span>(<span class="ruby-string">&quot;LPAR Name ? &quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">q</span><span class="ruby-operator">|</span> <span class="ruby-identifier">q</span>.<span class="ruby-identifier">validate</span> = <span class="ruby-regexp">/\S{4,16}/</span> ; <span class="ruby-identifier">q</span>.<span class="ruby-identifier">case</span> = <span class="ruby-value">:down</span>}
+  <span class="ruby-identifier">hash_response</span>[<span class="ruby-string">&quot;vp&quot;</span>] = <span class="ruby-identifier">ask</span>(<span class="ruby-string">&quot;Number of Virtual processors ? &quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">q</span><span class="ruby-operator">|</span> <span class="ruby-identifier">q</span>.<span class="ruby-identifier">validate</span> = <span class="ruby-regexp">/\d{1}/</span> ; <span class="ruby-identifier">q</span>.<span class="ruby-identifier">answer_type</span> = <span class="ruby-constant">Integer</span> }
+  <span class="ruby-identifier">hash_response</span>[<span class="ruby-string">&quot;mem&quot;</span>] = <span class="ruby-identifier">ask</span>(<span class="ruby-string">&quot;Quantity of Memory (Gb) ? &quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">q</span><span class="ruby-operator">|</span> <span class="ruby-identifier">q</span>.<span class="ruby-identifier">validate</span> = <span class="ruby-regexp">/\d{1,3}/</span>; <span class="ruby-identifier">q</span>.<span class="ruby-identifier">answer_type</span> = <span class="ruby-constant">Integer</span> }
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{line}&#39;, :horizontal_line) %&gt;&quot;</span>)
+  <span class="ruby-identifier">choose</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">menu</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index</span>        = <span class="ruby-value">:letter</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index_suffix</span> = <span class="ruby-string">&quot; - &quot;</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">prompt</span> = <span class="ruby-string">&#39;Use VSCSI Adapters ? &#39;</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choice</span> <span class="ruby-value">:yes</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">hash_response</span>[<span class="ruby-string">&quot;vdevs&quot;</span>][<span class="ruby-string">&quot;vscsi&quot;</span>] = { <span class="ruby-string">&quot;vio1&quot;</span> =<span class="ruby-operator">&gt;</span>  [<span class="ruby-value">20</span>,<span class="ruby-value">22</span>], <span class="ruby-string">&quot;vio2&quot;</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">21</span>,<span class="ruby-value">23</span>] }; <span class="ruby-identifier">hash_response</span>[<span class="ruby-string">&#39;ldevs&#39;</span>] = <span class="ruby-identifier">setupldevs</span>() <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choice</span> <span class="ruby-value">:no</span> <span class="ruby-keyword">do</span> <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{line}&#39;, :horizontal_line) %&gt;&quot;</span>)
+  <span class="ruby-identifier">choose</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">menu</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index</span>        = <span class="ruby-value">:letter</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index_suffix</span> = <span class="ruby-string">&quot; - &quot;</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">prompt</span> = <span class="ruby-string">&#39;Use VFC Adapters ? &#39;</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choice</span> <span class="ruby-value">:yes</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">hash_response</span>[<span class="ruby-string">&quot;vdevs&quot;</span>][<span class="ruby-string">&quot;vfc&quot;</span>] = { <span class="ruby-string">&quot;vio1&quot;</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">30</span>,<span class="ruby-string">&quot;fcs0&quot;</span>], <span class="ruby-string">&quot;vio2&quot;</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">31</span>,<span class="ruby-string">&quot;fcs3&quot;</span>] } <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choice</span> <span class="ruby-value">:no</span> <span class="ruby-keyword">do</span> <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">text</span> = <span class="ruby-string">&quot;Networks :&quot;</span>
+  <span class="ruby-identifier">line</span> = <span class="ruby-string">&quot;-&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{text}&#39;, :headline) %&gt;&quot;</span>)
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{line}&#39;, :horizontal_line) %&gt;&quot;</span>)
+  <span class="ruby-identifier">hash_response</span>[<span class="ruby-string">&quot;vdevs&quot;</span>][<span class="ruby-string">&quot;vnet&quot;</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">nbslan</span> = <span class="ruby-identifier">ask</span>(<span class="ruby-string">&#39;How much network interface to create ? &#39;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">q</span><span class="ruby-operator">|</span> <span class="ruby-identifier">q</span>.<span class="ruby-identifier">validate</span> = <span class="ruby-regexp">/[1-4]/</span>; <span class="ruby-identifier">q</span>.<span class="ruby-identifier">answer_type</span> = <span class="ruby-constant">Integer</span> }
+  <span class="ruby-identifier">counter</span> = <span class="ruby-value">1</span>
+  <span class="ruby-keyword">while</span> <span class="ruby-identifier">nbslan</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">vlan</span> = <span class="ruby-identifier">ask</span>(<span class="ruby-node">&quot;VLAN ID for interface no. #{counter}? &quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">q</span><span class="ruby-operator">|</span> <span class="ruby-identifier">q</span>.<span class="ruby-identifier">validate</span> = <span class="ruby-regexp">/\d{1,4}/</span>; <span class="ruby-identifier">q</span>.<span class="ruby-identifier">answer_type</span> = <span class="ruby-constant">Integer</span> }
+    <span class="ruby-identifier">hash_response</span>[<span class="ruby-string">&quot;vdevs&quot;</span>][<span class="ruby-string">&quot;vnet&quot;</span>].<span class="ruby-identifier">insert</span>(<span class="ruby-value">-1</span>,<span class="ruby-identifier">vlan</span>)
+    <span class="ruby-identifier">counter</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">nbslan</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">text</span> = <span class="ruby-string">&quot;NetBoot :&quot;</span>
+  <span class="ruby-identifier">line</span> = <span class="ruby-string">&quot;-&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{text}&#39;, :headline) %&gt;&quot;</span>)
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{line}&#39;, :horizontal_line) %&gt;&quot;</span>)
+  <span class="ruby-identifier">choose</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">menu</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index</span>        = <span class="ruby-value">:letter</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index_suffix</span> = <span class="ruby-string">&quot; - &quot;</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">prompt</span> = <span class="ruby-string">&#39;Setup IP for netboot ? : &#39;</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choice</span> <span class="ruby-value">:yes</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">hash_response</span>[<span class="ruby-string">&quot;netboot&quot;</span>] = <span class="ruby-identifier">choose_inet_netboot</span>(<span class="ruby-identifier">hash_response</span>[<span class="ruby-string">&quot;vdevs&quot;</span>][<span class="ruby-string">&quot;vnet&quot;</span>]) <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choice</span> <span class="ruby-value">:no</span> <span class="ruby-keyword">do</span> <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">text</span> = <span class="ruby-string">&quot;Sysref :&quot;</span>
+  <span class="ruby-identifier">line</span> = <span class="ruby-string">&quot;-&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{text}&#39;, :headline) %&gt;&quot;</span>)
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{line}&#39;, :horizontal_line) %&gt;&quot;</span>)
+  <span class="ruby-identifier">sysreflist</span> = <span class="ruby-ivar">@mynim</span>.<span class="ruby-identifier">spots</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span> = <span class="ruby-identifier">x</span>[<span class="ruby-value">:spotname</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-string">&quot;SPOT_&quot;</span>,<span class="ruby-string">&quot;&quot;</span>); <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/IOS/</span>); <span class="ruby-identifier">a</span>; <span class="ruby-keyword">end</span>}.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">sort</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span><span class="ruby-operator">|</span> <span class="ruby-identifier">y</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">x</span> }
+  <span class="ruby-identifier">choose</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">menu</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index</span>        = <span class="ruby-value">:letter</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index_suffix</span> = <span class="ruby-string">&quot; - &quot;</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">prompt</span> = <span class="ruby-string">&#39;Which Sysref to use ? : &#39;</span>
+    <span class="ruby-identifier">sysreflist</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sysref</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choice</span> <span class="ruby-identifier">sysref</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-string">&quot;LPP_&quot;</span>,<span class="ruby-string">&quot;&quot;</span>).<span class="ruby-identifier">to_sym</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">hash_response</span>[<span class="ruby-string">&quot;netboot&quot;</span>][<span class="ruby-string">&quot;sysref&quot;</span>] = <span class="ruby-identifier">sysref</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-string">&quot;LPP_&quot;</span>,<span class="ruby-string">&#39;&#39;</span>) <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">hash_response</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-prompt_ip_netboot" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prompt_ip_netboot</span><span
+            class="method-args">(vnet)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="prompt_ip_netboot-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_config_create.rb, line 223</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">prompt_ip_netboot</span>(<span class="ruby-identifier">vnet</span>)
+  <span class="ruby-identifier">nimnetworks</span> = <span class="ruby-ivar">@mynim</span>.<span class="ruby-identifier">networks</span>
+  <span class="ruby-identifier">ip</span> = <span class="ruby-identifier">ask</span>(<span class="ruby-node">&quot;IP for netboot for vnet #{vnet} ? &quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">q</span><span class="ruby-operator">|</span> <span class="ruby-identifier">q</span>.<span class="ruby-identifier">validate</span> = <span class="ruby-regexp">/^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9]{1,2})){3}$/</span>}
+  <span class="ruby-identifier">netmask</span> = <span class="ruby-identifier">ask</span>(<span class="ruby-node">&quot;Netmask for IP #{ip} ? &quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">q</span><span class="ruby-operator">|</span> <span class="ruby-identifier">q</span>.<span class="ruby-identifier">validate</span> = <span class="ruby-regexp">/^(((0|128|192|224|240|248|252|254).0.0.0)|(255.(0|128|192|224|240|248|252|254).0.0)|(255.255.(0|128|192|224|240|248|252|254).0)|(255.255.255.(0|128|192|224|240|248|252|254)))$/</span>}
+  <span class="ruby-comment">### for get the prefix length, let&#39;s create a nex IP object with the netmask</span>
+  <span class="ruby-comment">### then the prerix length will be the binary representation, counting 1&#39;s</span>
+  <span class="ruby-comment">### finally, myip will be the IP/Prefix</span>
+  <span class="ruby-identifier">cidr</span> = <span class="ruby-constant">IP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">netmask</span>)
+  <span class="ruby-identifier">pfxlen</span> = <span class="ruby-identifier">cidr</span>.<span class="ruby-identifier">to_b</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">count</span>(<span class="ruby-string">&quot;1&quot;</span>)
+  <span class="ruby-identifier">myip</span> = <span class="ruby-constant">IP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ip</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">pfxlen</span>.<span class="ruby-identifier">to_s</span>)
+  <span class="ruby-comment">### to get the network without the prefix, let&#39;s split &#39;/XX&#39;</span>
+  <span class="ruby-identifier">netipsearch</span>,<span class="ruby-identifier">prefix</span> = <span class="ruby-identifier">myip</span>.<span class="ruby-identifier">network</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;/&#39;</span>)
+  <span class="ruby-identifier">netmasksearch</span> = <span class="ruby-identifier">myip</span>.<span class="ruby-identifier">netmask</span>.<span class="ruby-identifier">to_s</span>
+  <span class="ruby-comment">### see if some already defined nim network match our inputs</span>
+  <span class="ruby-identifier">nimnet</span> = <span class="ruby-identifier">nimnetworks</span>.<span class="ruby-identifier">select</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>[<span class="ruby-value">:network</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">netipsearch</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">x</span>[<span class="ruby-value">:netmask</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">netmasksearch</span>  }
+  <span class="ruby-identifier">gateway</span> = <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">nimnet</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-comment">## if there is a match</span>
+    <span class="ruby-identifier">gateway</span> = <span class="ruby-identifier">nimnet</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:gateway</span>]
+    <span class="ruby-identifier">nimnetname</span> = <span class="ruby-identifier">nimnet</span>[<span class="ruby-value">0</span>][<span class="ruby-value">:netname</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment">### otherwise, prompt for the missing gateway info </span>
+    <span class="ruby-identifier">gateway</span> = <span class="ruby-identifier">ask</span>(<span class="ruby-node">&quot;gateway for IP #{ip} ? &quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">q</span><span class="ruby-operator">|</span> <span class="ruby-identifier">q</span>.<span class="ruby-identifier">validate</span> = <span class="ruby-regexp">/^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9]{1,2})){3}$/</span>}
+    <span class="ruby-identifier">mygateway</span> = <span class="ruby-constant">IP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">gateway</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">mygateway</span>.<span class="ruby-identifier">is_in?</span>(<span class="ruby-identifier">myip</span>.<span class="ruby-identifier">network</span>)
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-node">&quot;the gateway #{gateway} is not in the same network as #{ip}/#{pfxlen}. Try again&quot;</span>
+      <span class="ruby-identifier">prompt_ip_netboot</span>(<span class="ruby-identifier">vnet</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">nimnetname</span> = <span class="ruby-string">&quot;N/A&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">hash_return</span> = { <span class="ruby-string">&quot;vlan&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">vnet</span>, <span class="ruby-string">&quot;ip&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ip</span>, <span class="ruby-string">&quot;netmask&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">netmask</span>, <span class="ruby-string">&quot;gateway&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">gateway</span>, <span class="ruby-string">&quot;nimnetname&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">nimnetname</span> }
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">hash_return</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-run" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">run</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>let&#39;s roll</p>
+          
+          
+
+          
+          <div class="method-source-code" id="run-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_config_create.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>
+  <span class="ruby-identifier">initsettings</span>()
+  <span class="ruby-identifier">configfile</span> = <span class="ruby-identifier">loadConfig</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:configfile</span>])
+  <span class="ruby-identifier">config</span>[<span class="ruby-value">:nimserver</span>] = <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:nim</span>][<span class="ruby-value">:host</span>]
+  <span class="ruby-identifier">config</span>[<span class="ruby-value">:nimuser</span>] = <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:nim</span>][<span class="ruby-value">:user</span>]
+  <span class="ruby-identifier">config</span>[<span class="ruby-value">:nimpasswd</span>] = <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:nim</span>][<span class="ruby-value">:password</span>]
+  <span class="ruby-identifier">config</span>[<span class="ruby-value">:nimport</span>] = <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:nim</span>][<span class="ruby-value">:port</span>]
+  <span class="ruby-identifier">check_params</span>
+  <span class="ruby-identifier">lparconfig</span> = <span class="ruby-identifier">prep_config_file</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:misc</span>][<span class="ruby-value">:configdir</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">configfile</span>[<span class="ruby-value">:misc</span>][<span class="ruby-value">:configdir</span>]))
+    <span class="ruby-identifier">filename</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">configfile</span>[<span class="ruby-value">:misc</span>][<span class="ruby-value">:configdir</span>]) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">lparconfig</span>[<span class="ruby-string">&quot;lparname&quot;</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;.json&quot;</span>
+    <span class="ruby-identifier">savejson</span>(<span class="ruby-identifier">lparconfig</span>,<span class="ruby-identifier">filename</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-setupldevs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setupldevs</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setupldevs-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_config_create.rb, line 79</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setupldevs</span>()
+  <span class="ruby-identifier">text</span> = <span class="ruby-string">&quot;Ldev devices to use in order : rootvg,softvg,othervg&quot;</span>
+  <span class="ruby-identifier">line</span> = <span class="ruby-string">&quot;-&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{text}&#39;, :headline) %&gt;&quot;</span>)
+  <span class="ruby-identifier">say</span>(<span class="ruby-node">&quot;&lt;%= color(&#39;#{line}&#39;, :horizontal_line) %&gt;&quot;</span>)
+  <span class="ruby-identifier">say</span>(<span class="ruby-string">&quot;&lt;%= color(&#39;enter them in the following form : ARRAYSN:LDEVID;ARRAYSN:LDEVID (eg.: 15EF5:0256;15EF5:02A8)&#39;, BOLD) %&gt;&quot;</span>)
+  <span class="ruby-identifier">mylist</span> = <span class="ruby-identifier">ask</span>(<span class="ruby-string">&quot;LDEVs to use : &quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">q</span><span class="ruby-operator">|</span> <span class="ruby-identifier">q</span>.<span class="ruby-identifier">case</span> = <span class="ruby-value">:up</span> }
+  <span class="ruby-identifier">arrayldev</span> = <span class="ruby-identifier">mylist</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/(\w{5}:\w{4})/</span>)
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;\n Entered ldevs list :&quot;</span>
+  <span class="ruby-identifier">arrayldev</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;=&gt; #{entry}&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">choose</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">menu</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">index_suffix</span> = <span class="ruby-string">&quot; - &quot;</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">prompt</span> = <span class="ruby-string">&quot;Is the input correct ?&quot;</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choice</span> <span class="ruby-value">:yes</span> <span class="ruby-keyword">do</span> <span class="ruby-keyword">return</span> <span class="ruby-identifier">arrayldev</span>.<span class="ruby-identifier">flatten</span> <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choice</span> <span class="ruby-value">:no</span> <span class="ruby-keyword">do</span> <span class="ruby-identifier">setupldevs</span> <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

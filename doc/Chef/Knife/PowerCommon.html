@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module Chef::Knife::PowerCommon - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-commonids">#commonids</a>
+    
+    <li ><a href="#method-i-fetch_vio_fcmap">#fetch_vio_fcmap</a>
+    
+    <li ><a href="#method-i-fetch_vio_maps">#fetch_vio_maps</a>
+    
+    <li ><a href="#method-i-fetch_vio_vadapter">#fetch_vio_vadapter</a>
+    
+    <li ><a href="#method-i-get_lparstatus">#get_lparstatus</a>
+    
+    <li ><a href="#method-i-get_nim_networks">#get_nim_networks</a>
+    
+    <li ><a href="#method-i-get_vios_device_bible">#get_vios_device_bible</a>
+    
+    <li ><a href="#method-i-getconfig">#getconfig</a>
+    
+    <li ><a href="#method-i-getlparconfig">#getlparconfig</a>
+    
+    <li ><a href="#method-i-getlparlist">#getlparlist</a>
+    
+    <li ><a href="#method-i-getmanagedsys">#getmanagedsys</a>
+    
+    <li ><a href="#method-i-initsettings">#initsettings</a>
+    
+    <li ><a href="#method-i-list_nim_sysref">#list_nim_sysref</a>
+    
+    <li ><a href="#method-i-loadConfig">#loadConfig</a>
+    
+    <li ><a href="#method-i-loadjson">#loadjson</a>
+    
+    <li ><a href="#method-i-parse_profile">#parse_profile</a>
+    
+    <li ><a href="#method-i-print_ko">#print_ko</a>
+    
+    <li ><a href="#method-i-print_ok">#print_ok</a>
+    
+    <li ><a href="#method-i-prompt_hmc_passwd">#prompt_hmc_passwd</a>
+    
+    <li ><a href="#method-i-run_remote_command">#run_remote_command</a>
+    
+    <li ><a href="#method-i-save_lpar_current_config">#save_lpar_current_config</a>
+    
+    <li ><a href="#method-i-savejson">#savejson</a>
+    
+    <li ><a href="#method-i-show_wait_spinner">#show_wait_spinner</a>
+    
+    <li ><a href="#method-i-validate_config_file">#validate_config_file</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-Chef::Knife::PowerCommon">
+  <h1 id="module-Chef::Knife::PowerCommon" class="module">
+    module Chef::Knife::PowerCommon
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-commonids" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">commonids</span><span
+            class="method-args">(array1,array2)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="commonids-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 216</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">commonids</span>(<span class="ruby-identifier">array1</span>,<span class="ruby-identifier">array2</span>)
+  <span class="ruby-comment">### Let&#39;s find the two first common consecutive number inside two array as input</span>
+  <span class="ruby-comment">### Need sorted Array as input, but just in case, we resort them</span>
+  <span class="ruby-comment">## let&#39;s convert every single item into an integer just in case</span>
+  <span class="ruby-identifier">array1</span>.<span class="ruby-identifier">map!</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_i</span>)
+  <span class="ruby-identifier">array2</span>.<span class="ruby-identifier">map!</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_i</span>)
+  <span class="ruby-comment">## Add a max ids inside both array to be sure to have a result</span>
+  <span class="ruby-comment">#array1.insert(-1, array1.sort[-1]+10)</span>
+  <span class="ruby-comment">#array2.insert(-1, array2.sort[-1]+10)</span>
+  <span class="ruby-comment">## let&#39;s create a new array based on the differences between the input array and another array witch is made from the minimum value to the max value in the input array</span>
+  <span class="ruby-identifier">newarray1</span> = (<span class="ruby-identifier">array1</span>.<span class="ruby-identifier">sort</span>[<span class="ruby-value">0</span>]<span class="ruby-operator">...</span><span class="ruby-identifier">array1</span>.<span class="ruby-identifier">sort</span>[<span class="ruby-value">-1</span>]).<span class="ruby-identifier">to_a</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">array1</span>.<span class="ruby-identifier">sort</span>
+  <span class="ruby-identifier">newarray2</span> = (<span class="ruby-identifier">array2</span>.<span class="ruby-identifier">sort</span>[<span class="ruby-value">0</span>]<span class="ruby-operator">...</span><span class="ruby-identifier">array2</span>.<span class="ruby-identifier">sort</span>[<span class="ruby-value">-1</span>]).<span class="ruby-identifier">to_a</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">array2</span>.<span class="ruby-identifier">sort</span>
+  <span class="ruby-comment">## let&#39;s now intersect the two new arrays to find the common numbers</span>
+  <span class="ruby-identifier">intersect</span> = (<span class="ruby-identifier">newarray1</span> <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">newarray2</span>)
+  <span class="ruby-comment">## finally check which items are the two first consecutive ones</span>
+  <span class="ruby-identifier">intersect</span>.<span class="ruby-identifier">each_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">intersect</span>[<span class="ruby-identifier">x</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">intersect</span>[<span class="ruby-identifier">x</span>]<span class="ruby-operator">+</span><span class="ruby-value">1</span>
+      <span class="ruby-keyword">return</span> [<span class="ruby-identifier">intersect</span>[<span class="ruby-identifier">x</span>], <span class="ruby-identifier">intersect</span>[<span class="ruby-identifier">x</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-fetch_vio_fcmap" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fetch_vio_fcmap</span><span
+            class="method-args">(managed_sys,vio_id,vfchost)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="fetch_vio_fcmap-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 165</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fetch_vio_fcmap</span>(<span class="ruby-identifier">managed_sys</span>,<span class="ruby-identifier">vio_id</span>,<span class="ruby-identifier">vfchost</span>)
+  <span class="ruby-identifier">hash_mapping</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;viosvrcmd -m #{managed_sys} --id #{vio_id} -c \&quot;lsmap -vadapter #{vfchost} -npiv -fmt &#39;:&#39;\&quot;&quot;</span>
+    <span class="ruby-identifier">mapping</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">mapping</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">fcmap</span> = <span class="ruby-identifier">mapping</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;:&quot;</span>)
+      <span class="ruby-comment">## vfchost0:U9117.MMD.XXXXXXX-V1-C7:15:lpar1:AIX:LOGGED_IN:fcs0:U2C4E.001.DBY0000-P2-C4-T1:1:a:fcs0:U9117.MMD.XXXXXXX-V15-C30</span>
+      <span class="ruby-identifier">status</span> =  <span class="ruby-identifier">fcmap</span>[<span class="ruby-value">5</span>]
+      <span class="ruby-identifier">fcname</span> =  <span class="ruby-identifier">fcmap</span>[<span class="ruby-value">6</span>]
+      <span class="ruby-identifier">physloc</span> = <span class="ruby-identifier">fcmap</span>[<span class="ruby-value">7</span>]
+      <span class="ruby-identifier">portsli</span> = <span class="ruby-identifier">fcmap</span>[<span class="ruby-value">8</span>]
+      <span class="ruby-identifier">flags</span> =   <span class="ruby-identifier">fcmap</span>[<span class="ruby-value">9</span>]
+      <span class="ruby-identifier">clntfcname</span> = <span class="ruby-identifier">fcmap</span>[<span class="ruby-value">10</span>]
+      <span class="ruby-identifier">hash_mapping</span> = {<span class="ruby-string">&quot;status&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">status</span>,
+                      <span class="ruby-string">&quot;fcname&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fcname</span>,
+                      <span class="ruby-string">&quot;physloc&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">physloc</span>,
+                      <span class="ruby-string">&quot;portstatus&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">portsli</span>,
+                      <span class="ruby-string">&quot;flags&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">flags</span>,
+                      <span class="ruby-string">&quot;clntfcname&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">clntfcname</span>}
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">hash_mapping</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-fetch_vio_maps" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fetch_vio_maps</span><span
+            class="method-args">(managed_sys,vio_id,vhost)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="fetch_vio_maps-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 261</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fetch_vio_maps</span>(<span class="ruby-identifier">managed_sys</span>,<span class="ruby-identifier">vio_id</span>,<span class="ruby-identifier">vhost</span>)
+  <span class="ruby-identifier">array_mapping</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;viosvrcmd -m #{managed_sys} --id #{vio_id} -c \&quot;lsmap -vadapter #{vhost} -field \\\&quot;Backing device\\\&quot; VTD LUN -fmt \&quot;:\&quot;\&quot;&quot;</span>
+    <span class="ruby-identifier">mapping</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">mapping</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">!=</span> <span class="ruby-value">5</span>
+      <span class="ruby-identifier">mapping</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;:&quot;</span>).<span class="ruby-identifier">each_slice</span>(<span class="ruby-value">3</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^hdisk/</span>
+          <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;viosvrcmd -m #{managed_sys} --id #{vio_id} -c \&quot;lsdev -dev #{item[0]} -attr pvid\&quot; | tail -n 1&quot;</span>
+          <span class="ruby-identifier">pvid</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+          <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;viosvrcmd -m #{managed_sys} --id #{vio_id} -c \&quot;lspv -size #{item[0]}\&quot;&quot;</span>
+          <span class="ruby-identifier">size</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>).<span class="ruby-identifier">chomp</span>
+          <span class="ruby-comment">### Guess what device it is and if it&#39;s a Hitachi dev, fetch ArraySN &amp; LDEV</span>
+          <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;viosvrcmd -m #{managed_sys} --id #{vio_id}  -c \&quot;lsdev -dev #{item[0]} -vpd\&quot;&quot;</span>
+          <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>).<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+          <span class="ruby-identifier">vpddata</span> = <span class="ruby-identifier">output</span>[<span class="ruby-value">2</span><span class="ruby-operator">...</span><span class="ruby-identifier">output</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">7</span>]
+          <span class="ruby-identifier">hash</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+          <span class="ruby-identifier">vpddata</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">tmparr</span> = <span class="ruby-identifier">x</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp">/\.{2,}/</span>)
+            <span class="ruby-identifier">tmparr</span>.<span class="ruby-identifier">map!</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">y</span><span class="ruby-operator">|</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/\ {2,}/</span>,<span class="ruby-string">&quot;&quot;</span>)}
+            <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">tmparr</span>[<span class="ruby-value">0</span>]] = <span class="ruby-identifier">tmparr</span>[<span class="ruby-value">1</span>]
+          <span class="ruby-keyword">end</span>
+          <span class="ruby-identifier">sernum</span> = <span class="ruby-string">&quot;&quot;</span>
+          <span class="ruby-identifier">devid</span> = <span class="ruby-string">&quot;&quot;</span>
+          <span class="ruby-keyword">case</span> <span class="ruby-identifier">hash</span>[<span class="ruby-string">&quot;Manufacturer&quot;</span>]
+          <span class="ruby-keyword">when</span> <span class="ruby-regexp">/HITACHI/</span>
+            <span class="ruby-identifier">sernum</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-string">&quot;Serial Number&quot;</span>][<span class="ruby-value">-5</span>,<span class="ruby-value">+5</span>]
+            <span class="ruby-identifier">devid</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-string">&quot;Device Specific.(Z1)&quot;</span>][<span class="ruby-value">-8</span>,<span class="ruby-value">+4</span>]
+          <span class="ruby-keyword">when</span> <span class="ruby-regexp">/DGC/</span>
+            <span class="ruby-identifier">sernum</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-string">&quot;Serial Number&quot;</span>]
+            <span class="ruby-identifier">devid</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-string">&quot;Device Specific.(UI)&quot;</span>]
+          <span class="ruby-keyword">when</span> <span class="ruby-regexp">/EMC/</span>
+            <span class="ruby-identifier">sernum</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-string">&quot;EC Level&quot;</span>]
+            <span class="ruby-identifier">devid</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-string">&quot;LIC Node VPD&quot;</span>]
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">pvid</span> = <span class="ruby-string">&quot;&quot;</span>
+          <span class="ruby-identifier">sernum</span> = <span class="ruby-string">&quot;&quot;</span>
+          <span class="ruby-identifier">devid</span> = <span class="ruby-string">&quot;&quot;</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">hash</span> = { <span class="ruby-string">&quot;vtd&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">1</span>],
+                 <span class="ruby-string">&quot;lun&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">2</span>][<span class="ruby-value">0</span>,<span class="ruby-value">4</span>],
+                 <span class="ruby-string">&quot;backingdevice&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">0</span>],
+                 <span class="ruby-string">&quot;pvid&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">pvid</span>[<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-value">16</span>],
+                 <span class="ruby-string">&quot;sernum&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sernum</span>,
+                 <span class="ruby-string">&quot;devid&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">devid</span>,
+                 <span class="ruby-string">&quot;size&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">size</span> }
+        <span class="ruby-identifier">array_mapping</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-value">-1</span>,<span class="ruby-identifier">hash</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">array_mapping</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-fetch_vio_vadapter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fetch_vio_vadapter</span><span
+            class="method-args">(managed_sys,vio_id,adap_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="fetch_vio_vadapter-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 153</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fetch_vio_vadapter</span>(<span class="ruby-identifier">managed_sys</span>,<span class="ruby-identifier">vio_id</span>,<span class="ruby-identifier">adap_id</span>)
+  <span class="ruby-comment">## return the vhost adapter name (eg: vhost5) from the VIOS</span>
+  <span class="ruby-comment">## take the managedsys as input as well as the VIOSid and the adapter ID</span>
+  <span class="ruby-comment">### the VIOs command will return :</span>
+  <span class="ruby-comment">### &quot;U9117.MMA.65E3503-V159-C148  Virtual I/O Slot  vhost28&quot;</span>
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;viosvrcmd -m #{managed_sys} --id #{vio_id} -c \&quot;lsdev -slots\&quot; | grep \&quot;V#{vio_id}-C#{adap_id}\ \&quot;&quot;</span>  <span class="ruby-comment">## running the viosvrcmd to get the vscsi adapter name</span>
+    <span class="ruby-identifier">vscsiname</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">vscsiname</span>.<span class="ruby-identifier">split</span>[<span class="ruby-value">-1</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_lparstatus" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_lparstatus</span><span
+            class="method-args">(managedsys,lparname)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_lparstatus-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_lparstatus</span>(<span class="ruby-identifier">managedsys</span>,<span class="ruby-identifier">lparname</span>)
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;lssyscfg -r lpar -m #{managedsys} --filter lpar_names=#{lparname} -F state&quot;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>).<span class="ruby-identifier">chomp</span>()
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/HSCL/</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Error running the command&quot;</span>
+      <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">first</span>(<span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;...&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">output</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_nim_networks" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_nim_networks</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_nim_networks-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 459</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_nim_networks</span>
+  <span class="ruby-identifier">array_return</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:nimserver</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:nimuser</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:nimpasswd</span>],<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:nimport</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">regexp</span> = <span class="ruby-regexp">/(?&#39;netname&#39;\w+):[^:]*net_addr\s+=\s(?&#39;netaddr&#39;.+)\s+snm\s+=\s(?&#39;netmask&#39;.+)\s+routing1\s+=\s\w+\s(?&#39;gateway&#39;.+)[^:]/</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-string">&#39;lsnim -l -t ent&#39;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>,<span class="ruby-identifier">command</span>)
+    <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;\n&quot;</span>
+    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-identifier">regexp</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">net</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">hash</span> = { <span class="ruby-value">:netname</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">net</span>[<span class="ruby-value">0</span>],
+               <span class="ruby-value">:network</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">net</span>[<span class="ruby-value">1</span>],
+               <span class="ruby-value">:netmask</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">net</span>[<span class="ruby-value">2</span>],
+               <span class="ruby-value">:gateway</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">net</span>[<span class="ruby-value">3</span>] }
+      <span class="ruby-identifier">array_return</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-value">-1</span>,<span class="ruby-identifier">hash</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">array_return</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_vios_device_bible" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_vios_device_bible</span><span
+            class="method-args">(managed_sys,vio_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_vios_device_bible-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 238</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_vios_device_bible</span>(<span class="ruby-identifier">managed_sys</span>,<span class="ruby-identifier">vio_id</span>)
+  <span class="ruby-comment">## VIOS 1.5 does not have the chkdev command.</span>
+  <span class="ruby-comment">## the output will be nothing</span>
+  <span class="ruby-identifier">return_hash</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">ref_command</span> = <span class="ruby-node">&quot;viosvrcmd -m #{managed_sys} --id #{vio_id} -c \&quot;chkdev -verbose -field name identifier pvid vtd -fmt &#39;:&#39;\&quot;&quot;</span>
+    <span class="ruby-identifier">regexp_devices</span> = <span class="ruby-regexp">/^(\w+):\w+\s(\w{5})(\w{4}).{20}:(\w{4,16}):?0{0,16}:(\w+)?/</span>
+    <span class="ruby-identifier">ref_devices</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>,<span class="ruby-identifier">ref_command</span>).<span class="ruby-identifier">scan</span>(<span class="ruby-identifier">regexp_devices</span>)
+    <span class="ruby-comment">## for vios &lt; 2.2</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">ref_devices</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">ref_devices</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">return_hash</span>[<span class="ruby-identifier">entry</span>[<span class="ruby-value">0</span>]] = { <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">entry</span>[<span class="ruby-value">0</span>],
+                                <span class="ruby-value">:sernum</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">entry</span>[<span class="ruby-value">1</span>],
+                                <span class="ruby-value">:ldev</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">entry</span>[<span class="ruby-value">2</span>],
+                                <span class="ruby-value">:pvid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">entry</span>[<span class="ruby-value">3</span>],
+                                <span class="ruby-value">:vtd</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">entry</span>[<span class="ruby-value">4</span>]}
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">return_hash</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-getconfig" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getconfig</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getconfig-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 407</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getconfig</span>
+  <span class="ruby-identifier">hash</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">hash_mapping</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">hash_mapping</span>[<span class="ruby-string">&#39;vscsi&#39;</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">hash_mapping</span>[<span class="ruby-string">&#39;vfc&#39;</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;lssyscfg -r prof -m #{config[:managed_host]} --filter \&quot;lpar_names=#{config[:partition]},profile_names=$(lssyscfg -r lpar -m #{config[:managed_host]} --filter \&quot;lpar_names=#{config[:partition]}\&quot; -F curr_profile)\&quot;&quot;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/The command entered has a malformed filter/</span>
+      <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;lssyscfg -r prof -m #{config[:managed_host]} --filter \&quot;lpar_names=#{config[:partition]},profile_names=$(lssyscfg -r lpar -m #{config[:managed_host]} --filter \&quot;lpar_names=#{config[:partition]}\&quot; -F default_profile)\&quot;&quot;</span>
+      <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/HSCL8/</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Error running the command&quot;</span>
+      <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">first</span>(<span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;...&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">profile</span> = <span class="ruby-identifier">parse_profile</span>(<span class="ruby-identifier">output</span>)
+    <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">config</span>[<span class="ruby-value">:managed_host</span>]] = [<span class="ruby-identifier">profile</span>]
+    <span class="ruby-identifier">profile</span>[<span class="ruby-string">&quot;virtual_scsi_adapters&quot;</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">vscsi</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">array_info</span> = <span class="ruby-identifier">vscsi</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;/&quot;</span>) <span class="ruby-comment">## spliting into a array the vscsi line</span>
+      <span class="ruby-identifier">clientadapterid</span> = <span class="ruby-identifier">array_info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>
+      <span class="ruby-identifier">serveradapterid</span> = <span class="ruby-identifier">array_info</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">to_i</span>
+      <span class="ruby-identifier">vioserverid</span> = <span class="ruby-identifier">array_info</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>
+      <span class="ruby-identifier">vscsiname</span> = <span class="ruby-identifier">fetch_vio_vadapter</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:managed_host</span>],<span class="ruby-identifier">vioserverid</span>,<span class="ruby-identifier">serveradapterid</span>)
+      <span class="ruby-identifier">mappings</span> = <span class="ruby-identifier">fetch_vio_maps</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:managed_host</span>],<span class="ruby-identifier">vioserverid</span>,<span class="ruby-identifier">vscsiname</span>)
+      <span class="ruby-identifier">hash_mapping</span>[<span class="ruby-string">&#39;vscsi&#39;</span>].<span class="ruby-identifier">insert</span>(<span class="ruby-value">-1</span>, { <span class="ruby-string">&quot;vios&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">vioserverid</span>, <span class="ruby-string">&quot;vhost&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">vscsiname</span>, <span class="ruby-string">&quot;serveradapterid&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">serveradapterid</span>, <span class="ruby-string">&quot;clientadapterid&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">clientadapterid</span>, <span class="ruby-string">&quot;mappings&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">mappings</span>})
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">profile</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-string">&quot;virtual_fc_adapters&quot;</span>) <span class="ruby-keyword">and</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">profile</span>[<span class="ruby-string">&quot;virtual_fc_adapters&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;none&quot;</span>
+      <span class="ruby-identifier">profile</span>[<span class="ruby-string">&quot;virtual_fc_adapters&quot;</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">vfc</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">array_info</span> = <span class="ruby-identifier">vfc</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;/&quot;</span>) <span class="ruby-comment">## spliting into a array the vfc line</span>
+        <span class="ruby-identifier">clientadapterid</span> = <span class="ruby-identifier">array_info</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>
+        <span class="ruby-identifier">serveradapterid</span> = <span class="ruby-identifier">array_info</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">to_i</span>
+        <span class="ruby-identifier">vioserverid</span> = <span class="ruby-identifier">array_info</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>
+        <span class="ruby-identifier">vfcname</span> = <span class="ruby-identifier">fetch_vio_vadapter</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:managed_host</span>],<span class="ruby-identifier">vioserverid</span>,<span class="ruby-identifier">serveradapterid</span>)
+        <span class="ruby-identifier">fcmap</span> = <span class="ruby-identifier">fetch_vio_fcmap</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:managed_host</span>],<span class="ruby-identifier">vioserverid</span>,<span class="ruby-identifier">vfcname</span>)
+        <span class="ruby-identifier">hash_mapping</span>[<span class="ruby-string">&#39;vfc&#39;</span>].<span class="ruby-identifier">insert</span>(<span class="ruby-value">-1</span>, { <span class="ruby-string">&quot;vios&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">vioserverid</span>, <span class="ruby-string">&quot;vfchost&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">vfcname</span>, <span class="ruby-string">&quot;serveradapterid&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">serveradapterid</span>, <span class="ruby-string">&quot;clientadapterid&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">clientadapterid</span>, <span class="ruby-string">&quot;wwn1&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">array_info</span>[<span class="ruby-value">5</span>], <span class="ruby-string">&quot;wwn2&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">array_info</span>[<span class="ruby-value">6</span>], <span class="ruby-string">&quot;fcmap&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fcmap</span> })
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">hash_mapping</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-getlparconfig" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getlparconfig</span><span
+            class="method-args">(managedhost,lpar)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getlparconfig-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 361</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getlparconfig</span>(<span class="ruby-identifier">managedhost</span>,<span class="ruby-identifier">lpar</span>)
+  <span class="ruby-identifier">hash_profile</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>)
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment">###</span>
+    <span class="ruby-comment">### We will form :</span>
+    <span class="ruby-comment">###    {&quot;MANAGED_HOST&quot;=&gt; [{&quot;lpar_name&quot; =&gt; &quot;abc123&quot;, with all other key values...</span>
+    <span class="ruby-comment">###                        :profiles =&gt; [{profile1}, {profile2}]</span>
+    <span class="ruby-comment">###                        }]}</span>
+    <span class="ruby-comment">### Fetch lpar info</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;lssyscfg -r lpar -m #{managedhost} --filter \&quot;lpar_names=#{lpar}\&quot;&quot;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/HSCL8/</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Error running the command&quot;</span>
+      <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">first</span>(<span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;...&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment">## parsing (key=value)</span>
+    <span class="ruby-identifier">lparinfo</span> = <span class="ruby-identifier">parse_profile</span>(<span class="ruby-identifier">output</span>.<span class="ruby-identifier">chomp</span>)
+    <span class="ruby-identifier">lparinfo</span>[<span class="ruby-value">:profiles</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-comment">### Fetching profiles for parition</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;lssyscfg -r prof -m #{managedhost} --filter \&quot;lpar_names=#{lpar}\&quot; | sed -e \&quot;s/\\\&quot;/&#39;/g\&quot; -e \&quot;s/,/;/g\&quot;&quot;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/HSCL8/</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Error running the command&quot;</span>
+      <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">first</span>(<span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;...&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment">## For each profiles, parsing &amp; adding to array</span>
+    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-string">&quot;&#39;&quot;</span>,<span class="ruby-string">&quot;\&quot;&quot;</span>)
+    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-string">&quot;;&quot;</span>,<span class="ruby-string">&quot;,&quot;</span>)
+    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-string">&quot;\n&quot;</span>,<span class="ruby-string">&quot;&quot;</span>)
+    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">profile</span> = <span class="ruby-identifier">parse_profile</span>(<span class="ruby-identifier">line</span>)
+      <span class="ruby-identifier">lparinfo</span>[<span class="ruby-value">:profiles</span>].<span class="ruby-identifier">insert</span>(<span class="ruby-value">-1</span>, <span class="ruby-identifier">profile</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">hash_profile</span>[<span class="ruby-identifier">managedhost</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">hash_profile</span>[<span class="ruby-identifier">managedhost</span>].<span class="ruby-identifier">insert</span>(<span class="ruby-value">-1</span>, <span class="ruby-identifier">lparinfo</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">hash_profile</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-getlparlist" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getlparlist</span><span
+            class="method-args">(managedhost)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getlparlist-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 342</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getlparlist</span>(<span class="ruby-identifier">managedhost</span>)
+  <span class="ruby-identifier">array_lpars</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;lssyscfg -r lpar -m #{managedhost} -F name,curr_profile,lpar_env | grep -v vioserver | cut -d\&quot;,\&quot; -f 1&quot;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/HSCL8/</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Error running the command&quot;</span>
+      <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">first</span>(<span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;...&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">array_lpars</span> = <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">array_lpars</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-getmanagedsys" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getmanagedsys</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getmanagedsys-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 315</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getmanagedsys</span>()
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:debug</span>]
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Getting list of managed sys on HMC #{config[:hmc]}&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">array_hosts</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-string">&quot;lssyscfg -r sys -F name,state | grep Operating | cut -d\&quot;,\&quot; -f 1&quot;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/HSCL8/</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Error running the command&quot;</span>
+      <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">first</span>(<span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;...&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">array_hosts</span> = <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:debug</span>]
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">&quot;Managed Hosts :&quot;</span>
+    <span class="ruby-identifier">array_hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sys</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;\t=&gt;#{sys},&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">array_hosts</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-initsettings" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">initsettings</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="initsettings-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initsettings</span>
+  <span class="ruby-comment">#### First, check if a configuration is present and if we can load vars from it</span>
+  <span class="ruby-identifier">filename</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:configfile</span>])
+  <span class="ruby-identifier">configfile</span> = <span class="ruby-identifier">loadConfig</span>(<span class="ruby-identifier">filename</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">configfile</span>
+    <span class="ruby-comment">### configuration file prensent, loading data</span>
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Loading configuration file #{config[:configfile]}&quot;</span>
+    <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>] = <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:hmc</span>][<span class="ruby-value">:host</span>]
+    <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>] = <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:hmc</span>][<span class="ruby-value">:port</span>]
+    <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>] = <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:hmc</span>][<span class="ruby-value">:user</span>]
+    <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmcpasswd</span>] = <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:hmc</span>][<span class="ruby-value">:password</span>]
+    <span class="ruby-ivar">@friendlynames</span> = <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:friendlynames</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Unable to load configuration file.&quot;</span>
+    <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;No HMC parameter specified in configuration file&quot;</span>
+    <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-list_nim_sysref" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">list_nim_sysref</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="list_nim_sysref-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 477</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">list_nim_sysref</span>
+  <span class="ruby-identifier">array_return</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:nimserver</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:nimuser</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:nimpasswd</span>],<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:nimport</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-string">&#39;lsnim -t lpp_source&#39;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>,<span class="ruby-identifier">command</span>)
+    <span class="ruby-identifier">array_return</span> = <span class="ruby-identifier">output</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/(?!\w+IOS)(^\w+_(\w+)\b)/</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">array_return</span>.<span class="ruby-identifier">flatten</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-loadConfig" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">loadConfig</span><span
+            class="method-args">(configfile)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="loadConfig-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 49</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">loadConfig</span>(<span class="ruby-identifier">configfile</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">configfile</span>)
+    <span class="ruby-identifier">config</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-identifier">configfile</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">config</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-loadjson" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">loadjson</span><span
+            class="method-args">(file)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="loadjson-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">loadjson</span>(<span class="ruby-identifier">file</span>)
+  <span class="ruby-comment">##</span>
+  <span class="ruby-comment">## Load json file and return a hash of the json file</span>
+  <span class="ruby-comment">##</span>
+  <span class="ruby-identifier">json</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>)
+  <span class="ruby-identifier">hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">json</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">hash</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-parse_profile" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse_profile</span><span
+            class="method-args">(data)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="parse_profile-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 131</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_profile</span>(<span class="ruby-identifier">data</span>)
+  <span class="ruby-comment">### parse the output of the profile listing command</span>
+  <span class="ruby-comment">### return a hash of the profile key=value</span>
+  <span class="ruby-identifier">profile</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-comment">### Frist of all, let&#39;s clean and remove all the \n inside the string :</span>
+  <span class="ruby-identifier">data</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-string">&quot;\n&quot;</span>,<span class="ruby-string">&quot;&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/\n/</span>
+  <span class="ruby-comment">### Ok, a bit tricky here. Since the formating of virtual_fc_adapters contains more commas, it&#39;s treated with the scan as another matching group</span>
+  <span class="ruby-comment">### So, first we must transform the input to</span>
+  <span class="ruby-comment">###     =&gt; match the WWN1 &amp; WWN2 and replace the separting comma with a slash</span>
+  <span class="ruby-comment">###     =&gt; gsub to remove the &quot;&quot;,&quot;&quot; (sperating fc_adapters entries) with a simple comma</span>
+  <span class="ruby-comment">###     =&gt; Finaly, remove all the &quot;&quot;</span>
+  <span class="ruby-identifier">data</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">/(\h{16}),(\h{16})/</span>,<span class="ruby-string">&#39;\1&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39;\2&#39;</span>).<span class="ruby-identifier">gsub!</span>(<span class="ruby-string">&quot;\&quot;\&quot;,\&quot;\&quot;&quot;</span>,<span class="ruby-string">&quot;,&quot;</span>).<span class="ruby-identifier">gsub!</span>(<span class="ruby-string">&quot;\&quot;\&quot;&quot;</span>,<span class="ruby-string">&quot;&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/(\h{16})/</span>
+  <span class="ruby-identifier">parameters</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">scan</span>( <span class="ruby-regexp">/([^&quot;,]+)|&quot;([^&quot;]+)&quot;/</span> ).<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">compact</span>
+  <span class="ruby-identifier">parameters</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">param</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">tmparray</span> = <span class="ruby-identifier">param</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;=&quot;</span>)
+    <span class="ruby-identifier">key</span> = <span class="ruby-identifier">tmparray</span>[<span class="ruby-value">0</span>]
+    <span class="ruby-identifier">value</span> = <span class="ruby-identifier">tmparray</span>[<span class="ruby-value">1</span>]
+    <span class="ruby-identifier">profile</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">value</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">profile</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-print_ko" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">print_ko</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="print_ko-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 455</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">print_ko</span>
+  <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;%40s\n&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;[KO]&#39;</span>, <span class="ruby-value">:red</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-print_ok" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">print_ok</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="print_ok-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 452</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">print_ok</span>
+  <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;%40s\n&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;[OK]&#39;</span>, <span class="ruby-value">:green</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-prompt_hmc_passwd" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prompt_hmc_passwd</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="prompt_hmc_passwd-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">prompt_hmc_passwd</span>
+  <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;Enter #{config[:hmc_user]} password for HMC: &quot;</span>
+  <span class="ruby-constant">STDIN</span>.<span class="ruby-identifier">noecho</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:gets</span>).<span class="ruby-identifier">chomp</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-run_remote_command" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">run_remote_command</span><span
+            class="method-args">(ssh, command)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="run_remote_command-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+  <span class="ruby-identifier">return_val</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">ssh</span>.<span class="ruby-identifier">exec!</span> <span class="ruby-identifier">command</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ch</span>, <span class="ruby-identifier">stream</span>, <span class="ruby-identifier">data</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">stream</span> <span class="ruby-operator">==</span> <span class="ruby-value">:stdout</span>
+      <span class="ruby-identifier">return_val</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">chomp</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-comment"># some exception is in order I think</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Something went wrong:&quot;</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">to_s</span>
+      <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">return_val</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-save_lpar_current_config" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">save_lpar_current_config</span><span
+            class="method-args">(managedsys,lparid)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="save_lpar_current_config-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 95</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">save_lpar_current_config</span>(<span class="ruby-identifier">managedsys</span>,<span class="ruby-identifier">lparid</span>)
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;mksyscfg -r prof -m #{managedsys} -o save --id #{lparid} -n $(lssyscfg -r lpar -m #{managedsys} --filter \\\&quot;lpar_ids=#{lparid}\\\&quot; -F curr_profile) --force&quot;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;command =&gt; #{command}&quot;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/HSCL/</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Error running the command&quot;</span>
+      <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">first</span>(<span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;...&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-savejson" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">savejson</span><span
+            class="method-args">(hash,file)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="savejson-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">savejson</span>(<span class="ruby-identifier">hash</span>,<span class="ruby-identifier">file</span>)
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>,<span class="ruby-string">&quot;w&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">hash</span>.<span class="ruby-identifier">to_json</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">file</span>)
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;#{ui.color(&quot;Successfully&quot;, :green)} saved file #{file}&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Something went wrong saving file #{file}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-show_wait_spinner" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show_wait_spinner</span><span
+            class="method-args">(fps=10) { || ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="show_wait_spinner-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 488</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show_wait_spinner</span>(<span class="ruby-identifier">fps</span>=<span class="ruby-value">10</span>)
+  <span class="ruby-identifier">chars</span> = <span class="ruby-node">%w[| / - \\]</span>
+  <span class="ruby-identifier">delay</span> = <span class="ruby-value">1.0</span><span class="ruby-operator">/</span><span class="ruby-identifier">fps</span>
+  <span class="ruby-identifier">iter</span> = <span class="ruby-value">0</span>
+  <span class="ruby-identifier">spinner</span> = <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-keyword">while</span> <span class="ruby-identifier">iter</span> <span class="ruby-keyword">do</span>
+        <span class="ruby-identifier">print</span> <span class="ruby-identifier">chars</span>[(<span class="ruby-identifier">iter</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>) <span class="ruby-operator">%</span> <span class="ruby-identifier">chars</span>.<span class="ruby-identifier">length</span>]
+        <span class="ruby-identifier">sleep</span> <span class="ruby-identifier">delay</span>
+        <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;\b&quot;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">yield</span>.<span class="ruby-identifier">tap</span>{       <span class="ruby-comment"># After yielding to the block, save the return value</span>
+                     <span class="ruby-identifier">iter</span> = <span class="ruby-keyword">false</span>   <span class="ruby-comment"># Tell the thread to exit, cleaning up after itself…</span>
+                     <span class="ruby-identifier">spinner</span>.<span class="ruby-identifier">join</span>   <span class="ruby-comment"># …and wait for it to do so.</span>
+                     }                <span class="ruby-comment"># Use the block&#39;s return value as the method&#39;s</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-validate_config_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">validate_config_file</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="validate_config_file-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common.rb, line 190</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_config_file</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;%-50s&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-node">&quot;Opening file #{config[:json_config_file]}&quot;</span>
+    <span class="ruby-identifier">jsondata</span> = <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:json_config_file</span>])
+    <span class="ruby-identifier">print_ok</span>
+    <span class="ruby-identifier">hash_data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">jsondata</span>.<span class="ruby-identifier">read</span>)
+    <span class="ruby-comment">## Check all mandatory Fields</span>
+    <span class="ruby-comment">## let setup a json schema :</span>
+    <span class="ruby-identifier">schema</span> = <span class="ruby-identifier">getschema</span>
+    <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;%-50s&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-string">&quot;Validating JSON Schema&quot;</span>
+    <span class="ruby-constant">JSON</span><span class="ruby-operator">::</span><span class="ruby-constant">Validator</span>.<span class="ruby-identifier">validate!</span>(<span class="ruby-identifier">schema</span>, <span class="ruby-identifier">hash_data</span>)
+    <span class="ruby-identifier">print_ok</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">hash_data</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">JSON</span><span class="ruby-operator">::</span><span class="ruby-constant">Schema</span><span class="ruby-operator">::</span><span class="ruby-constant">ValidationError</span>
+    <span class="ruby-identifier">print_ko</span>
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Configuration file #{config[:json_config_file]} does not have a valide schema!&quot;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-identifier">$!</span>.<span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">JSON</span><span class="ruby-operator">::</span><span class="ruby-constant">ParserError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">print_ko</span>
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Configuration file #{config[:json_config_file]} structure is invalid!&quot;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Error with json structure&quot;</span>
+  <span class="ruby-keyword">ensure</span>
+    <span class="ruby-identifier">jsondata</span>.<span class="ruby-identifier">close</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">jsondata</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

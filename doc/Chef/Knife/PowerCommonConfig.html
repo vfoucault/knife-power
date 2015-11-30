@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module Chef::Knife::PowerCommonConfig - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-getlparconfig">#getlparconfig</a>
+    
+    <li ><a href="#method-i-getlparlist">#getlparlist</a>
+    
+    <li ><a href="#method-i-getmanagedsys">#getmanagedsys</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-Chef::Knife::PowerCommonConfig">
+  <h1 id="module-Chef::Knife::PowerCommonConfig" class="module">
+    module Chef::Knife::PowerCommonConfig
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-getlparconfig" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getlparconfig</span><span
+            class="method-args">(managedhost,lpar)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getlparconfig-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common_config.rb, line 69</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getlparconfig</span>(<span class="ruby-identifier">managedhost</span>,<span class="ruby-identifier">lpar</span>)
+  <span class="ruby-identifier">hash_profile</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>)
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment">###</span>
+    <span class="ruby-comment">### We will form :</span>
+    <span class="ruby-comment">###    {&quot;MANAGED_HOST&quot;=&gt; [{&quot;lpar_name&quot; =&gt; &quot;abc123&quot;, with all other key values...</span>
+    <span class="ruby-comment">###                        :profiles =&gt; [{profile1}, {profile2}]</span>
+    <span class="ruby-comment">###                        }]}</span>
+    <span class="ruby-comment">### Fetch lpar info</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;lssyscfg -r lpar -m #{managedhost} --filter \&quot;lpar_names=#{lpar}\&quot;&quot;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/HSCL8/</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Error running the command&quot;</span>
+      <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">first</span>(<span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;...&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment">## parsing (key=value)</span>
+    <span class="ruby-identifier">lparinfo</span> = <span class="ruby-identifier">parse_profile</span>(<span class="ruby-identifier">output</span>.<span class="ruby-identifier">chomp</span>)
+    <span class="ruby-identifier">lparinfo</span>[<span class="ruby-value">:profiles</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-comment">### Fetching profiles for parition</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;lssyscfg -r prof -m #{managedhost} --filter \&quot;lpar_names=#{lpar}\&quot; | sed -e \&quot;s/\\\&quot;/&#39;/g\&quot; -e \&quot;s/,/;/g\&quot;&quot;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/HSCL8/</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Error running the command&quot;</span>
+      <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">first</span>(<span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;...&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment">## For each profiles, parsing &amp; adding to array</span>
+    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-string">&quot;&#39;&quot;</span>,<span class="ruby-string">&quot;\&quot;&quot;</span>)
+    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-string">&quot;;&quot;</span>,<span class="ruby-string">&quot;,&quot;</span>)
+    <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">profile</span> = <span class="ruby-identifier">parse_profile</span>(<span class="ruby-identifier">line</span>)
+      <span class="ruby-identifier">lparinfo</span>[<span class="ruby-value">:profiles</span>].<span class="ruby-identifier">insert</span>(<span class="ruby-value">-1</span>, <span class="ruby-identifier">profile</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">hash_profile</span>[<span class="ruby-identifier">managedhost</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">hash_profile</span>[<span class="ruby-identifier">managedhost</span>].<span class="ruby-identifier">insert</span>(<span class="ruby-value">-1</span>, <span class="ruby-identifier">lparinfo</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">hash_profile</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-getlparlist" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getlparlist</span><span
+            class="method-args">(managedhost)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getlparlist-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common_config.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getlparlist</span>(<span class="ruby-identifier">managedhost</span>)
+  <span class="ruby-identifier">array_lpars</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-node">&quot;lssyscfg -r lpar -m #{managedhost} -F name,curr_profile,lpar_env | grep -v vioserver | cut -d\&quot;,\&quot; -f 1&quot;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/HSCL8/</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Error running the command&quot;</span>
+      <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">first</span>(<span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;...&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">array_lpars</span> = <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">array_lpars</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-getmanagedsys" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getmanagedsys</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getmanagedsys-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_common_config.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getmanagedsys</span>()
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:debug</span>]
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Getting list of managed sys on HMC #{config[:hmc]}&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">array_hosts</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SSH</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>], <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], {<span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hmc_passwd</span>,<span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>]}) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ssh</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">command</span> = <span class="ruby-string">&quot;lssyscfg -r sys -F name,state | grep Operating | cut -d\&quot;,\&quot; -f 1&quot;</span>
+    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">run_remote_command</span>(<span class="ruby-identifier">ssh</span>, <span class="ruby-identifier">command</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/HSCL8/</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;Error running the command&quot;</span>
+      <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">first</span>(<span class="ruby-value">2</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;...&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">array_hosts</span> = <span class="ruby-identifier">output</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:debug</span>]
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">&quot;Managed Hosts :&quot;</span>
+    <span class="ruby-identifier">array_hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sys</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;\t=&gt;#{sys},&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">array_hosts</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

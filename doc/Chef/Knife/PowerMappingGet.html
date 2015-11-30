@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Chef::Knife::PowerMappingGet - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Knife.html">Chef::Knife</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="PowerCommon.html">Chef::Knife::PowerCommon</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-check_frame_lpar">#check_frame_lpar</a>
+    
+    <li ><a href="#method-i-check_params">#check_params</a>
+    
+    <li ><a href="#method-i-export_config">#export_config</a>
+    
+    <li ><a href="#method-i-print_mapping">#print_mapping</a>
+    
+    <li ><a href="#method-i-print_mapping_csv">#print_mapping_csv</a>
+    
+    <li ><a href="#method-i-print_mapping_json">#print_mapping_json</a>
+    
+    <li ><a href="#method-i-run">#run</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Chef::Knife::PowerMappingGet">
+  <h1 id="class-Chef::Knife::PowerMappingGet" class="class">
+    class Chef::Knife::PowerMappingGet
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-check_frame_lpar" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_frame_lpar</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_frame_lpar-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_mapping_get.rb, line 87</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_frame_lpar</span>
+  <span class="ruby-comment">## check if frame exists</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@myhmc</span>.<span class="ruby-identifier">framesbystatus</span>(<span class="ruby-string">&quot;Operating&quot;</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:managed_host</span>])
+   <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Frame #{config[:managed_host]} does not exists or is not in a proper state&quot;</span>
+   <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@myframe</span> = <span class="ruby-constant">PowerVMTools</span><span class="ruby-operator">::</span><span class="ruby-constant">Frame</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:managed_host</span>],<span class="ruby-ivar">@myhmc</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@myframe</span>.<span class="ruby-identifier">lpars</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:partition</span>])
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Lpar #{config[:partition]} does not exists on this Frame&quot;</span>
+    <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-check_params" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_params</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_params-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_mapping_get.rb, line 100</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_params</span>
+  <span class="ruby-identifier">initsettings</span>()
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;No HMC parameter specified in configuration file&quot;</span>
+    <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:managed_host</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;No frame specified. Add one with &#39;-m framename&#39;&quot;</span>
+    <span class="ruby-identifier">show_usage</span>
+    <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:partition</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">error</span> <span class="ruby-string">&quot;No partition specified. Add one with &#39;-n partitionname&#39;&quot;</span>
+    <span class="ruby-identifier">show_usage</span>
+    <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Will fetch partition #{ui.color(config[:partition], :cyan)} from managed host #{ui.color(config[:managed_host], :cyan)} on hmc #{ui.color(config[:hmc], :cyan)}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-export_config" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">export_config</span><span
+            class="method-args">(hash_profile,directory)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="export_config-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_mapping_get.rb, line 119</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">export_config</span>(<span class="ruby-identifier">hash_profile</span>,<span class="ruby-identifier">directory</span>)
+  <span class="ruby-identifier">hash_profile</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sys</span>,<span class="ruby-identifier">array</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">array</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">profile</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">fullpath</span> = <span class="ruby-identifier">directory</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">sys</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;_&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">profile</span>[<span class="ruby-string">&quot;lpar_name&quot;</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;_&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">profile</span>[<span class="ruby-string">&quot;name&quot;</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;.json&quot;</span>
+      <span class="ruby-identifier">savejson</span>(<span class="ruby-identifier">profile</span>,<span class="ruby-identifier">fullpath</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-print_mapping" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">print_mapping</span><span
+            class="method-args">(hash_mapping)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="print_mapping-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_mapping_get.rb, line 158</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">print_mapping</span>(<span class="ruby-identifier">hash_mapping</span>)
+  <span class="ruby-identifier">configfile</span> = <span class="ruby-identifier">loadConfig</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:configfile</span>]))
+  <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Managed system : #{ui.color(config[:managed_host], :cyan)} \t Partition : #{ui.color(config[:partition], :cyan)}&quot;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">hash_mapping</span>[<span class="ruby-string">&quot;vscsi&quot;</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">adapter_list</span> = [
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;ViosID&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;SrvAdapID&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;vhost&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;CltAdapID&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;device&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;lun&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;vtd&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;pvid&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;ArraySN&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;DevID&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;Size&#39;</span>, <span class="ruby-value">:cyan</span>),
+    ].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">compact</span>
+    <span class="ruby-identifier">colcount</span> = <span class="ruby-identifier">adapter_list</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">hash_mapping</span>[<span class="ruby-string">&quot;vscsi&quot;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:vioserverid</span>].<span class="ruby-identifier">to_s</span>
+      <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:serveradapterid</span>].<span class="ruby-identifier">to_s</span>
+      <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:devname</span>]
+      <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:clientadapterid</span>].<span class="ruby-identifier">to_s</span>
+      <span class="ruby-identifier">first</span> = <span class="ruby-value">1</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:mappings</span>].<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">sorted</span> = <span class="ruby-identifier">item</span>[<span class="ruby-value">:mappings</span>].<span class="ruby-identifier">sort_by</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>[<span class="ruby-string">&#39;lun&#39;</span>] }
+        <span class="ruby-identifier">sorted</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mapping</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword">if</span> <span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;vtd&quot;</span>].<span class="ruby-identifier">chomp</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;lun&quot;</span>].<span class="ruby-identifier">chomp</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;backingdevice&quot;</span>].<span class="ruby-identifier">chomp</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;pvid&quot;</span>].<span class="ruby-identifier">chomp</span>
+            <span class="ruby-comment">## try to map friendly names for this sernum</span>
+            <span class="ruby-keyword">if</span> <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:friendlynames</span>][<span class="ruby-value">:storagearray</span>][<span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;sernum&quot;</span>]]
+              <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:friendlynames</span>][<span class="ruby-value">:storagearray</span>][<span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;sernum&quot;</span>]]
+            <span class="ruby-keyword">else</span>
+              <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;sernum&quot;</span>]
+            <span class="ruby-keyword">end</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;devid&quot;</span>]
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;size&quot;</span>]
+            <span class="ruby-identifier">first</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+          <span class="ruby-keyword">else</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;vtd&quot;</span>].<span class="ruby-identifier">chomp</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;lun&quot;</span>].<span class="ruby-identifier">chomp</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;backingdevice&quot;</span>].<span class="ruby-identifier">chomp</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;pvid&quot;</span>].<span class="ruby-identifier">chomp</span>
+            <span class="ruby-comment">## try to map friendly names for this sernum</span>
+            <span class="ruby-keyword">if</span> <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:friendlynames</span>][<span class="ruby-value">:storagearray</span>][<span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;sernum&quot;</span>]]
+              <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">configfile</span>[<span class="ruby-value">:friendlynames</span>][<span class="ruby-value">:storagearray</span>][<span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;sernum&quot;</span>]]
+            <span class="ruby-keyword">else</span>
+              <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;sernum&quot;</span>]
+            <span class="ruby-keyword">end</span>
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;devid&quot;</span>]
+            <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mapping</span>[<span class="ruby-string">&quot;size&quot;</span>]
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span>
+        <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span>
+        <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span>
+        <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span>
+        <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span>
+        <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span>
+        <span class="ruby-identifier">adapter_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span>
+        <span class="ruby-identifier">first</span> = <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">list</span>(<span class="ruby-identifier">adapter_list</span>, <span class="ruby-value">:uneven_columns_across</span>, <span class="ruby-identifier">colcount</span>)
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">&quot;\n&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">hash_mapping</span>[<span class="ruby-string">&#39;vfc&#39;</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">vfc_list</span> = [
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;ViosID&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;SrvAdapID&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;vfchost&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;CltAdapID&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;PhysLoc&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;VioDev&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;ClntDev&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;WWN1&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;WWN2&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;Status&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;flags&#39;</span>, <span class="ruby-value">:cyan</span>),
+      <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">color</span>(<span class="ruby-string">&#39;Ports LoggedIn&#39;</span>, <span class="ruby-value">:cyan</span>),
+    ].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">compact</span>
+    <span class="ruby-identifier">colcount2</span> = <span class="ruby-identifier">vfc_list</span>.<span class="ruby-identifier">length</span>
+    <span class="ruby-identifier">hash_mapping</span>[<span class="ruby-string">&#39;vfc&#39;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:vioserverid</span>].<span class="ruby-identifier">to_s</span>
+      <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:serveradapterid</span>].<span class="ruby-identifier">to_s</span>
+      <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:devname</span>]
+      <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:clientadapterid</span>].<span class="ruby-identifier">to_s</span>
+      <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:fcmap</span>][<span class="ruby-string">&quot;physloc&quot;</span>]
+      <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:fcmap</span>][<span class="ruby-string">&quot;fcname&quot;</span>]
+      <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:fcmap</span>][<span class="ruby-string">&quot;clntfcname&quot;</span>]
+      <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:wwn1</span>]
+      <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:wwn2</span>]
+      <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:fcmap</span>][<span class="ruby-string">&quot;status&quot;</span>].<span class="ruby-identifier">to_s</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:fcmap</span>][<span class="ruby-string">&quot;flags&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;a&quot;</span>
+        <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&lt;LOGGED_IN,STRIP_MERGE&gt;&quot;</span>
+      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:fcmap</span>][<span class="ruby-string">&quot;flags&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;1&quot;</span>
+        <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&lt;NOT_MAPPED,NOT_CONNECTED&gt;&quot;</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:fcmap</span>][<span class="ruby-string">&quot;flags&quot;</span>]
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">vfc_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>[<span class="ruby-value">:fcmap</span>][<span class="ruby-string">&quot;portstatus&quot;</span>]
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">list</span>(<span class="ruby-identifier">vfc_list</span>, <span class="ruby-value">:uneven_columns_across</span>, <span class="ruby-identifier">colcount2</span>)
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">&quot;\n&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-print_mapping_csv" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">print_mapping_csv</span><span
+            class="method-args">(hash_mapping)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="print_mapping_csv-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_mapping_get.rb, line 130</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">print_mapping_csv</span>(<span class="ruby-identifier">hash_mapping</span>)
+  <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Managed system : #{ui.color(config[:managed_host], :cyan)} \t Partition : #{ui.color(config[:partition], :cyan)}&quot;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">hash_mapping</span>[<span class="ruby-string">&#39;vscsi&#39;</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">&quot;LPAR;ViosID;SrvAdapID;vhost;CltAdapID;device;lun;vtd;pvid;ArraySN;DevID;Size&quot;</span>
+    <span class="ruby-identifier">hash_mapping</span>[<span class="ruby-string">&#39;vscsi&#39;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">item</span>[<span class="ruby-value">:mappings</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mapping</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{config[:partition]};#{item[:vioserverid].to_s};#{item[:serveradapterid].to_s};#{item[:devname]};#{item[:clientadapterid].to_s};&quot;</span>
+        <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{mapping[&quot;vtd&quot;].chomp};#{mapping[&quot;lun&quot;].chomp};#{mapping[&quot;backingdevice&quot;].chomp};#{mapping[&quot;pvid&quot;].chomp};#{mapping[&quot;sernum&quot;]};\&quot;#{mapping[&quot;devid&quot;]}\&quot;;#{mapping[&quot;size&quot;]}\n&quot;</span>
+      <span class="ruby-keyword">end</span>        
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">hash_mapping</span>[<span class="ruby-string">&#39;vfc&#39;</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">&quot;ViosID;SrvAdapID;vfchost;CltAdapID;PhysLoc;VioDev;ClntDev;WWN1;WWN2;Flags;Ports LoggedIn&quot;</span>
+    <span class="ruby-identifier">hash_mapping</span>[<span class="ruby-string">&#39;vfc&#39;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{item[&quot;vios&quot;].to_s};#{item[&quot;serveradapterid&quot;].to_s};#{item[&quot;vfchost&quot;]};#{item[&quot;clientadapterid&quot;].to_s};#{item[&quot;fcmap&quot;][&quot;physloc&quot;]};#{item[&quot;fcmap&quot;][&quot;fcname&quot;]};&quot;</span>
+      <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{item[&quot;fcmap&quot;][&quot;clntfcname&quot;]};#{item[&quot;wwn1&quot;]};#{item[&quot;wwn2&quot;]};&quot;</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span>[<span class="ruby-string">&quot;fcmap&quot;</span>][<span class="ruby-string">&quot;flags&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;a&quot;</span>
+        <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;&lt;LOGGED_IN,STRIP_MERGE&gt;;&quot;</span>
+      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">item</span>[<span class="ruby-string">&quot;fcmap&quot;</span>][<span class="ruby-string">&quot;flags&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;1&quot;</span>
+        <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;&lt;NOT_MAPPED,NOT_CONNECTED&gt;;&quot;</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{item[&quot;fcmap&quot;][&quot;flags&quot;]};&quot;</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{item[&quot;fcmap&quot;][&quot;portstatus&quot;]}\n&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-print_mapping_json" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">print_mapping_json</span><span
+            class="method-args">(hash_mapping)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="print_mapping_json-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_mapping_get.rb, line 127</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">print_mapping_json</span>(<span class="ruby-identifier">hash_mapping</span>)
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">hash_mapping</span>.<span class="ruby-identifier">to_json</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-run" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">run</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Run the plugin</p>
+          
+          
+
+          
+          <div class="method-source-code" id="run-source">
+            <pre><span class="ruby-comment"># File lib/chef/knife/power_mapping_get.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>
+  <span class="ruby-identifier">check_params</span>
+  <span class="ruby-comment">#hash_mapping = getconfig</span>
+  <span class="ruby-comment">#### creating the HMC object</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:debug</span>]
+    <span class="ruby-identifier">debug</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">debug</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@myhmc</span> = <span class="ruby-constant">PowerVMTools</span><span class="ruby-operator">::</span><span class="ruby-constant">HMC</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc</span>],{ <span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmc_user</span>], <span class="ruby-value">:passwd</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:hmcpasswd</span>], <span class="ruby-value">:port</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:ssh_port</span>],<span class="ruby-value">:debug</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">debug</span> })
+  <span class="ruby-ivar">@myframe</span> = <span class="ruby-constant">PowerVMTools</span><span class="ruby-operator">::</span><span class="ruby-constant">Frame</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:managed_host</span>],<span class="ruby-ivar">@myhmc</span>)
+  <span class="ruby-identifier">check_frame_lpar</span>
+  <span class="ruby-identifier">mylpar</span> = <span class="ruby-constant">PowerVMTools</span><span class="ruby-operator">::</span><span class="ruby-constant">Lpar</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>[<span class="ruby-value">:partition</span>],{<span class="ruby-value">:frame</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@myframe</span> })
+  <span class="ruby-identifier">hash_mappings</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">hash_mappings</span>[<span class="ruby-string">&quot;vscsi&quot;</span>] = <span class="ruby-identifier">mylpar</span>.<span class="ruby-identifier">getmappings</span>
+  <span class="ruby-identifier">hash_mappings</span>[<span class="ruby-string">&quot;vfc&quot;</span>] = <span class="ruby-identifier">mylpar</span>.<span class="ruby-identifier">getvfcmappings</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:output_format</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;csv&quot;</span>
+    <span class="ruby-identifier">print_mapping_csv</span>(<span class="ruby-identifier">hash_mappings</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">config</span>[<span class="ruby-value">:output_format</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;json&quot;</span>
+    <span class="ruby-identifier">print_mapping_json</span>(<span class="ruby-identifier">hash_mappings</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">print_mapping</span>(<span class="ruby-identifier">hash_mappings</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
