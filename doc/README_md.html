@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>README - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+<div class="nav-section">
+  <h3>Table of Contents</h3>
+
+  <ul class="link-list" role="directory">
+    <li><a href="#label-knife+plugin+to+manage+PowerVM+Hypervisor">knife plugin to manage PowerVM Hypervisor</a>
+    <li><a href="#label-Module+configuration+file+-3A+-7E-2Fknife-power-config.yml">Module configuration file : <code>~/knife-power-config.yml</code></a>
+    <li><a href="#label-knife+config+get">knife config get</a>
+    <li><a href="#label-knife+config+create">knife config create</a>
+    <li><a href="#label-knife+power+mapping+get">knife power mapping get</a>
+  </ul>
+</div>
+
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./CONTRIBUTING_md.html">CONTRIBUTING</a>
+  
+    <li><a href="./Gemfile.html">Gemfile</a>
+  
+    <li><a href="./Gemfile_lock.html">Gemfile.lock</a>
+  
+    <li><a href="./LICENSE.html">LICENSE</a>
+  
+    <li><a href="./README_md.html">README</a>
+  
+    <li><a href="./knife-power_gemspec.html">knife-power.gemspec</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page README.md">
+
+<h1 id="label-knife+plugin+to+manage+PowerVM+Hypervisor">knife plugin to manage PowerVM Hypervisor<span><a href="#label-knife+plugin+to+manage+PowerVM+Hypervisor">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<p>This knife module relies on the powervmtools gem. As the powervmtool, this
+support only the Hitachi Storage Arrays Will add the following set of knife
+sub commands :</p>
+<ul><li>
+<pre class="ruby"><span class="ruby-identifier">power</span> <span class="ruby-identifier">mapping</span> <span class="ruby-identifier">get</span>
+</pre>
+
+<p>: Get a listing of all the partition storage mappings, vscsi &amp; npiv</p>
+</li><li>
+<pre class="ruby"><span class="ruby-identifier">power</span> <span class="ruby-identifier">config</span> <span class="ruby-identifier">create</span>
+</pre>
+
+<p>:Create a json formated configuration file for creating a lpar via the
+<code>lpar create</code> subcommand</p>
+</li><li>
+<pre class="ruby"><span class="ruby-identifier">power</span> <span class="ruby-identifier">config</span> <span class="ruby-identifier">get</span>
+</pre>
+
+<p>: Get a listing of the configuration settings for all or the specified lpar</p>
+</li><li>
+<pre class="ruby"><span class="ruby-identifier">power</span> <span class="ruby-identifier">lpar</span> <span class="ruby-identifier">find</span>
+</pre>
+
+<p>: Find the phyical host for the specified lpar</p>
+</li><li>
+<pre class="ruby"><span class="ruby-identifier">power</span> <span class="ruby-identifier">lpar</span> <span class="ruby-identifier">create</span>
+</pre>
+
+<p>: Create a lpar from the configuration file generated with the <code>config
+create</code></p>
+</li></ul>
+
+<h3 id="label-Module+configuration+file+-3A+-7E-2Fknife-power-config.yml">Module configuration file : <code>~/knife-power-config.yml</code><span><a href="#label-Module+configuration+file+-3A+-7E-2Fknife-power-config.yml">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>This file helps defining common configuration settings :</p>
+
+<pre>### HMC Part
+#
+:hmc:
+  :host: &#39;hmchost&#39;
+  :port: &#39;22&#39;
+  :user: &#39;hscroot&#39;
+  :password: &#39;abc123&#39;
+## NIM Part
+:nim:
+  :host: &#39;nimhost&#39;
+  :port: &#39;22&#39;
+  :user: &#39;root&#39;
+  :password: &#39;rootroot&#39;
+  :nimobjects: 
+    - &#39;group=master_713&#39;
+    - &#39;resolv_conf=fr_RESOLV&#39;
+    - &#39;file_res=FR_DC_FR&#39;
+## Misc Part
+#
+:misc: 
+  :reportdir: &#39;~/knife-power-reports/&#39;
+  :configdir: &#39;~/knife-power-configs/&#39;
+## Array Friendly names part
+#
+:friendlynames:
+  :storagearray: 
+    13C89:  &#39;SA_DC1&#39;
+    12A6B:  &#39;SA_DC2&#39;</pre>
+
+<h3 id="label-knife+config+get">knife config get<span><a href="#label-knife+config+get">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Will fetch lpar configuration on Hmc :</p>
+
+<p>Fetch all the configuration of all the lpars from all the managed systems
+with the help of the configuration file: <code>bash $ knife power config
+get -a </code> will produce the following output :</p>
+
+<pre>$ knife power config get -a
+WARNING: No knife configuration file found
+Loading configuration file ~/knife-power-config.yml
+Will fetch all partitions from all managed hosts on hmc hmc1
+Managed system : p770_1
+Partition ID  Partition     State  Profile           CPU Type  CPU Mode  CPU Weight  SharedProcPool  Desired VP  Max VP  Desired EC  Max EC  Desired Memory  Max Memory  AME Factor
+1             p770_1_vio1         default           shared    uncap     254         DefaultPool     4           8       2.0         8.0     6.0             16.0        0.0
+2             p770_1_vio2         default           shared    uncap     254         DefaultPool     4           8       2.0         8.0     6.0             16.0        0.0
+4             lpartest_1          default           shared    uncap     128         DefaultPool     1           2       0.1         1.0     4.0             16.0        1.2
+3             lpartest_2          default           shared    uncap     128         DefaultPool     2           4       0.2         0.4     3.5             16.0        1.2
+
+Managed system : p770_2
+Partition ID  Partition     State  Profile           CPU Type  CPU Mode  CPU Weight  SharedProcPool  Desired VP  Max VP  Desired EC  Max EC  Desired Memory  Max Memory  AME Factor
+1             p770_2_vio1         default           shared    uncap     254         DefaultPool     4           8       2.0         8.0     6.0             16.0        0.0
+2             p770_2_vio2         default           shared    uncap     254         DefaultPool     4           8       2.0         8.0     6.0             16.0        0.0
+3             lpar1              default            shared    uncap     128         DefaultPool     2           4       0.2         4.0     4.0             16.0        1.2
+4             lpar2              default            shared    uncap     128         DefaultPool     1           2       0.1         2.0     4.0             16.0        1.2</pre>
+
+<p>Fetch the configuration of lpar <code>lpar_name</code> from managed system
+<code>managed_system_name</code> with the HMC settings specified : “`bash
+knife power config get –hmc 1.2.3.4 –hmc-user hscroot –hmc-passwd passwd -m
+manged_system_name -n lpar_name ““</p>
+
+<h3 id="label-knife+config+create">knife config create<span><a href="#label-knife+config+create">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Used to generate partition configuration file. It&#39;s an interactive
+shell which prompt for questions</p>
+
+<pre class="ruby"><span class="ruby-identifier">knife</span> <span class="ruby-identifier">power</span> <span class="ruby-identifier">create</span> <span class="ruby-identifier">lpar</span>
+</pre>
+
+<pre>vfoucault@ubuntu:~$ knife power config create
+Loading configuration file /home/vfoucault/knife-power-config.yml
+LPAR Json configuration creator
+-------------------------------
+Managed systems available on this HMC
+-------------------------------------
+a - p770_1
+b - p770_2
+
+Please choose the hosting managed system : b
+
+LPAR Settings :
+---------------
+LPAR Name ? lpar1
+Number of Virtual processors ? 4
+Quantity of Memory (Gb) ? 16
+---------------
+a - yes
+b - no
+Use VSCSI Adapters ? a
+Ldev devices to use in order : rootvg,othervg...
+----------------------------------------------------
+enter them in the following form : ARRAYSN:LDEVID;ARRAYSN:LDEVID (eg.: 15EF5:0256;15EF5:02A8)
+LDEVs to use : 15EF5:0256;15EF5:02A8
+
+ Entered ldevs list :
+=&gt; 15EF5:0256
+=&gt; 15EF5:02A8
+1 - yes
+2 - no
+Is the input correct ?
+1
+---------------
+a - yes
+b - no
+Use VFC Adapters ? a
+Networks :
+----------
+How much network interface to create ? 1
+VLAN ID for interface no. 1? 1899
+NetBoot :
+---------
+a - yes
+b - no
+Setup IP for netboot ? : a
+IP for netboot for vnet 1899 ? 10.18.18.156
+Netmask for IP 10.18.18.156 ? 255.255.255.0
+gateway for IP 10.18.18.156 ? 10.18.18.1
+Sysref :
+--------
+a - AIX713_SP4
+b - AIX713_SP2
+c - AIX619_SP4
+
+
+Which LPP_source to use ? : a
+Successfully saved file /home/vfoucault/knife-power-configs/lpar1.json
+vfoucault@ubuntu:~$</pre>
+
+<p>The produced file is a json formated file :</p>
+
+<pre>vfoucault@ubuntu:~$ cat /home/vfoucault/knife-power-configs/lpar1c.json
+{&quot;managedsys&quot;:&quot;p770_2&quot;,
+ &quot;lparname&quot;:&quot;uxit204c&quot;,
+ &quot;vp&quot;:4,
+ &quot;mem&quot;:16,
+ &quot;ame&quot;:1.2,
+ &quot;vdevs&quot;:{
+   &quot;vscsi&quot;:{
+     &quot;vio1&quot;:[20,22],
+     &quot;vio2&quot;:[21,23]},
+     &quot;vfc&quot;:{
+       &quot;vio1&quot;:[30,&quot;fcs0&quot;],
+       &quot;vio2&quot;:[31,&quot;fcs3&quot;]},
+     &quot;vnet&quot;:[1899]},
+     &quot;ldevs&quot;:[&quot;15EF5:0256&quot;,&quot;15EF5:02A8&quot;],
+     &quot;netboot&quot;:{
+       &quot;vlan&quot;:1899,        
+       &quot;ip&quot;:&quot;10.18.18.156&quot;,
+       &quot;netmask&quot;:&quot;255.255.255.0&quot;,
+       &quot;nimnetname&quot;:&quot;N/A&quot;,
+       &quot;sysref&quot;:&quot;AIX710_SP4&quot;}}
+vfoucault@ubuntu:~$</pre>
+
+<h3 id="label-knife+power+mapping+get">knife power mapping get<span><a href="#label-knife+power+mapping+get">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Extract a map of all the storage related mappings (both vscsi &amp; vfc)
+<code>bash knife power mapping get -m framename -n partition  </code> “`
+bash vfoucault@ubuntu:~$ knife power mapping get -n uxit190c -m p770-1
+WARNING: No knife configuration file found Loading configuration file
+~/knife-power-config.yml Will fetch partition lpar1 from managed host
+p770-1 on hmc hmc1.domain Managed system : p770_1 Partition : lpar1 ViosID
+SrvAdapID vhost CltAdapID device lun vtd pvid ArraySN DevID Size 1 10
+vhost0 20 lpar1dsadc102E4 0x81 hdisk72 00c9c37775dc3f63 SA_DC1 02E4 65536 
+lpar1dsadc102E5 0x82 hdisk73 none SA_DC1 02E5 32768  lpar1dsadc102E6 0x83
+hdisk74 none SA_DC1 02E6 32768  lpar1dsadc102E7 0x84 hdisk75 none SA_DC1
+02E7 1024  lpar1dsadc102E8 0x85 hdisk76 none SA_DC1 02E8 32768 
+lpar1dsadc101FE 0x86 hdisk77 none SA_DC1 01FE 32768 2 10 vhost0 21
+lpar1dsadc102E4 0x81 hdisk72 00c9c37775dc3f63 SA_DC1 02E4 65536 
+lpar1dsadc102E5 0x82 hdisk73 none SA_DC1 02E5 32768  lpar1dsadc102E6 0x83
+hdisk74 none SA_DC1 02E6 32768  lpar1dsadc102E7 0x84 hdisk75 none SA_DC1
+02E7 1024  lpar1dsadc102E8 0x85 hdisk76 none SA_DC1 02E8 32768 
+lpar1dsadc101FE 0x86 hdisk77 none SA_DC1 01FE 32768 1 11 vhost1 22 2 11
+vhost1 23</p>
+
+<p>ViosID SrvAdapID vfchost CltAdapID PhysLoc VioDev ClntDev WWN1 WWN2 Status
+flags Ports LoggedIn 1 15 vfchost0 30 U2C4E.001.XXXXXXX-P2-C4-T1 fcs0
+xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx NOT_LOGGED_IN 4 0 2 15 vfchost0 31
+U2C4E.001.XXXXXXX-P2-C5-T2 fcs3 xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx
+NOT_LOGGED_IN 4 0</p>
+
+<p>vfoucault@ubuntu:~$</p>
+
+<pre>Output settings :</pre>
+
+<p>bash  -o FORMAT dump the output un csv (format =&gt; csv) <code> ### knife
+power lpar create Will create the lpar from the specified lpar
+configuration file </code>bash knife power lpar create -e lparconfig.json
+<code> </code> exhibit “`</p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
